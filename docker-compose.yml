@@ -1,18 +1,25 @@
 services:
   qdrant:
-    image: qdrant/qdrant:latest
+    image: qdrant/qdrant:gpu-nvidia-latest
     container_name: qdrant
     ports:
       - "6333:6333"
       - "6334:6334"
+    environment:
+      - QDRANT__GPU__INDEXING=1
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
     volumes:
       - ./qdrant_storage:/qdrant/storage
     restart: unless-stopped
 
   ollama:
     image: ollama/ollama:latest
-    environment:
-      - OLLAMA_NUM_PARALLEL=1
     container_name: ollama
     ports:
       - "11434:11434"
