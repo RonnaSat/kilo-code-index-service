@@ -2,7 +2,7 @@
 set -e
 
 # Configuration
-MODEL_NAME="embeddinggemma"
+MODEL_NAME="qwen3-embedding:0.6b"
 
 echo "Starting Ollama..."
 /bin/ollama serve &
