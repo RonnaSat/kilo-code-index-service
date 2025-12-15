@@ -19,15 +19,14 @@ services:
     restart: unless-stopped
 
   ollama:
-    image: ollama/ollama:latest
+    build: ./ollama_build
     container_name: ollama
     ports:
       - "11434:11434"
     gpus: all
     volumes:
-      - ./ollama:/root/.ollama
-      - ./ollama-startup.sh:/ollama-startup.sh
-    entrypoint: /bin/bash
-    command:
-      - /ollama-startup.sh
+      - ollama_data:/root/.ollama
     restart: unless-stopped
+
+volumes:
+  ollama_data:
